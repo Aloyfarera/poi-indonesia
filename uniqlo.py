@@ -86,4 +86,4 @@ class uniqlo():
             self.content.append(_data)
             
 if __name__ == '__main__':
-    uniqlo(True)
+    uniqlo(False)

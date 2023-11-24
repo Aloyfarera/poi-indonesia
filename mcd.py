@@ -31,7 +31,6 @@ class mcd():
       options.add_argument('--no-sandbox')
       options.add_argument('--disable-dev-shm-usage')
       self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-      start = time.time()
       self.get_data()
       x = pd.DataFrame(self.content)
       
@@ -83,5 +82,5 @@ class mcd():
             self.content.append(_data)
             
 if __name__ == '__main__':
-    mcd(True)      
+    mcd(False)      
 

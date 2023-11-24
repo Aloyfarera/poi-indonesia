@@ -6,8 +6,8 @@ import http.client
 import json
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from requests_html import HTMLSession,AsyncHTMLSession
 import oss2
 import os
@@ -47,12 +47,11 @@ class kfc():
           print(f'File {oss_object_key} uploaded to OSS bucket {bucket_name}')
       
     def update_cookies(self):
-        options = webdriver.EdgeOptions()
-        options.add_argument("--headless")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--no-sandbox")  
-        options.add_argument("--disable-dev-shm-usage")       
-        browser = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()),options=options)
+        options = Options()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         browser.get('https://kfcku.com/store')
         time.sleep(2)
         cookie_data = browser.get_cookies()
@@ -87,7 +86,6 @@ class kfc():
             'x-requested-with': 'XMLHttpRequest',
         }
         page = 0
-        all_data = list()
         while True:
             params = {
                 'page': f'{page}',
@@ -139,7 +137,7 @@ class kfc():
 
 
 if __name__ == '__main__':
-    kfc(True)
+    kfc(False)
 
 
 
