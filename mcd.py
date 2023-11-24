@@ -6,11 +6,8 @@ import pandas as pd
 import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.edge.service import Service as EdgeService
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from gmaps_geocode import get_latlon
 import pendulum
 import oss2
@@ -29,12 +26,11 @@ class mcd():
       self.from_main = from_main
       self.session = HTMLSession()
       self.content = list()
-      options = webdriver.EdgeOptions()
-      options.add_argument("--headless")
-      options.add_argument("--disable-gpu")
-      options.add_argument("--no-sandbox")  
-      options.add_argument("--disable-dev-shm-usage")       
-      self.browser = webdriver.Edge(service=EdgeService(EdgeChromiumDriverManager().install()),options=options)
+      options = Options()
+      options.add_argument('--headless')
+      options.add_argument('--no-sandbox')
+      options.add_argument('--disable-dev-shm-usage')
+      self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
       start = time.time()
       self.get_data()
       x = pd.DataFrame(self.content)
