@@ -112,6 +112,7 @@ class kfc():
                     services = ''
                 
                 _data = dict()
+                _data['brand_code'] = self.file_name.replace(".py",'')
                 _data['store_name'] = store_name
                 _data['address'] = address
                 _data['tel_no'] = tel_no
