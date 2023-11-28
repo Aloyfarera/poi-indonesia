@@ -33,7 +33,7 @@ class kfc():
         csv_data = x.to_csv(index=False).encode('utf-8')
         blob_service_client = BlobServiceClient.from_connection_string(con_string)
         blob_obj = blob_service_client.get_blob_client(container="poi-indonesia", blob=f'csv/{self.file_name}')
-        blob_obj.upload_blob(csv_data)
+        blob_obj.upload_blob(csv_data,overwrite=True)
         print(f"Total data {self.file_name}: {x.shape}")
         print(f'File {self.file_name} uploaded to azure data lake storage poi-indonesia bucket')
       
