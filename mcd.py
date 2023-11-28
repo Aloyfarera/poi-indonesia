@@ -8,7 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from gmaps_geocode import get_latlon
+#from gmaps_geocode import get_latlon
 import pendulum
 import oss2
 import os
@@ -20,6 +20,7 @@ access_key_secret = os.getenv('access_key_secret')
 endpoint = 'oss-ap-southeast-5.aliyuncs.com'
 bucket_name = 'poi-indonesia'
 
+
 class mcd():
     def __init__(self, from_main=False):
       self.file_name = 'mcd'.replace('/', '_').replace('.py', '')
@@ -30,7 +31,7 @@ class mcd():
       options.add_argument('--headless')
       options.add_argument('--no-sandbox')
       options.add_argument('--disable-dev-shm-usage')
-      self.browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+      self.browser = webdriver.Chrome(options=options)
       self.get_data()
       x = pd.DataFrame(self.content)
       
