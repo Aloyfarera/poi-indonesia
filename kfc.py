@@ -9,15 +9,12 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from requests_html import HTMLSession,AsyncHTMLSession
-import oss2
+from azure.storage.blob import BlobServiceClient
 import os
 from dotenv import load_dotenv
 load_dotenv()
 
-access_key_id = os.getenv('access_key_id')
-access_key_secret = os.getenv('access_key_secret')
-endpoint = 'oss-ap-southeast-5.aliyuncs.com'
-bucket_name = 'poi-indonesia'
+con_string = os.getenv('con_string')
 
 class kfc():
     def __init__(self, from_main=False):
@@ -25,7 +22,6 @@ class kfc():
       self.from_main = from_main
       self.session = HTMLSession()
       self.content = list()
-      start = time.time()
       self.get_data()
       x = pd.DataFrame(self.content)
       x = x.drop_duplicates('store_name')
@@ -33,18 +29,13 @@ class kfc():
       if from_main:
           x.to_csv(f"csv/{self.file_name}.csv",index=False)
       else:
-          csv_data = x.to_csv(index=False).encode('utf-8')
-          oss_object_key = f'{self.file_name}.csv'
-    
-          # Create an OSS auth instance
-          auth = oss2.Auth(access_key_id, access_key_secret)
-    
-          # Create an OSS bucket instance
-          bucket = oss2.Bucket(auth, endpoint, bucket_name)
-    
-          bucket.put_object(oss_object_key, csv_data)
-    
-          print(f'File {oss_object_key} uploaded to OSS bucket {bucket_name}')
+        # upload to azure data lake storage
+        csv_data = x.to_csv(index=False).encode('utf-8')
+        blob_service_client = BlobServiceClient.from_connection_string(con_string)
+        blob_obj = blob_service_client.get_blob_client(container="poi-indonesia", blob=f'csv/{self.file_name}')
+        blob_obj.upload_blob(csv_data)
+        print(f"Total data {self.file_name}: {x.shape}")
+        print(f'File {self.file_name} uploaded to azure data lake storage poi-indonesia bucket')
       
     def update_cookies(self):
         options = Options()
@@ -90,12 +81,15 @@ class kfc():
             params = {
                 'page': f'{page}',
             }
-            response = requests.get('https://kfcku.com/api/stores', params=params, cookies=cookies, headers=headers).json()
-            last_page = response['last_page']
-            if page % 25 == 0:
-                 cookies = self.update_cookies()
-            if page % 50 == 0:
-                time.sleep(15)
+            for i in range(5):
+                try:
+                    response = requests.get('https://kfcku.com/api/stores', params=params, cookies=cookies, headers=headers).json()
+                    last_page = response['last_page']
+                    break
+                except:
+                    print(f"retry {i}")
+                    cookies = self.update_cookies()
+                    time.sleep(50)
             list_data = response['data']
             for store in list_data:
                 store_name = store['name']
