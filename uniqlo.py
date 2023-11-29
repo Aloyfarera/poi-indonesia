@@ -29,7 +29,7 @@ class uniqlo():
                             'services',
                             'scrape_date'])
       if from_main:
-          x.to_csv(f"{self.file_name}.csv",index=False)
+          x.to_csv(f"csv/{self.file_name}.csv",index=False)
       else:
         # upload to azure data lake storage
         csv_data = x.to_csv(index=False).encode('utf-8')
@@ -85,4 +85,4 @@ class uniqlo():
             self.content.append(_data)
             
 if __name__ == '__main__':
-    uniqlo(True)
+    uniqlo(False)
