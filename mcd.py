@@ -87,7 +87,7 @@ class mcd():
             _data['lon'] = lon    
             utc_time = pendulum.now()
             indonesia = utc_time.in_timezone('Asia/Bangkok')
-            _data["scrape_date"] = indonesia.strftime("%m/%d/%y")
+            _data["scrape_date"] = indonesia.strftime("%Y/%m/%d")
             print(_data)
             print("jumlah data--",len(self.content))
             self.content.append(_data)

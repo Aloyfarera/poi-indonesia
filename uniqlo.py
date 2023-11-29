@@ -29,7 +29,7 @@ class uniqlo():
                             'services',
                             'scrape_date'])
       if from_main:
-          x.to_csv(f"csv/{self.file_name}.csv",index=False)
+          x.to_csv(f"{self.file_name}.csv",index=False)
       else:
         # upload to azure data lake storage
         csv_data = x.to_csv(index=False).encode('utf-8')
@@ -80,9 +80,9 @@ class uniqlo():
             _data['open_hours'] = open_hours
             utc_time = pendulum.now()
             indonesia = utc_time.in_timezone('Asia/Bangkok')
-            _data["scrape_date"] = indonesia.strftime("%m/%d/%y")
+            _data["scrape_date"] = indonesia.strftime("%Y/%m/%d")
             print(_data)
             self.content.append(_data)
             
 if __name__ == '__main__':
-    uniqlo(False)
+    uniqlo(True)
