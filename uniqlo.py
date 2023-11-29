@@ -18,6 +18,16 @@ class uniqlo():
       self.get_data()
       x = pd.DataFrame(self.content)
       x = x.drop_duplicates('store_name')
+      x = x.reindex(columns=['brand_code',
+                            'store_name',
+                            'address',
+                            'tel_no',
+                            'url_store',
+                            'lat',
+                            'lon',
+                            'open_hours',
+                            'services',
+                            'scrape_date'])
       if from_main:
           x.to_csv(f"csv/{self.file_name}.csv",index=False)
       else:
