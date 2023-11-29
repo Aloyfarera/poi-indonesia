@@ -80,7 +80,7 @@ class uniqlo():
             _data['open_hours'] = open_hours
             utc_time = pendulum.now()
             indonesia = utc_time.in_timezone('Asia/Bangkok')
-            _data["scrape_date"] = indonesia.strftime("%Y/%m/%d")
+            _data["scrape_date"] = indonesia.strftime("%m/%d/%Y")
             print(_data)
             self.content.append(_data)
             
