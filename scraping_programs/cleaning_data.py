@@ -5,7 +5,7 @@ from shapely.geometry import Point
 # Replace 'your_shapefile.shp' with the actual path to your shapefile
 def get_city(df):
     print('classify indonesian city from coordinates..')
-    gdf_cities = gpd.read_file('C:/Users/bramu/OneDrive/Documents/poi-indonesia/assets/BATAS KABUPATEN KOTA DESEMBER 2019 DUKCAPIL.shp')
+    gdf_cities = gpd.read_file('/root/airflow/poi-indonesia/poi-indonesia/assets/BATAS KABUPATEN KOTA DESEMBER 2019 DUKCAPIL.shp')
     geometry = [Point(xy) for xy in zip(df['lon'], df['lat'])]
     geo_df_points = gpd.GeoDataFrame(df, geometry=geometry, crs=gdf_cities.crs)
     result = gpd.sjoin(geo_df_points, gdf_cities, how="left", op="within")
