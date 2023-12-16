@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
-from airflow.operators.snowflake_operator import SnowflakeOperator
 import pendulum
 
 local_tz = pendulum.timezone("Asia/Bangkok")
@@ -37,19 +36,6 @@ with DAG(
         # Add more tasks as needed
     ]
 
-    # Snowflake task
-    snowflake_task = SnowflakeOperator(
-        task_id='copy_into_task',
-        sql="COPY INTO POI_INDONESIA.PUBLIC.POI_INDONESIA_MASTER \
-            FROM @STG_SI_DEMO_STAGE_1 \
-            FILE_FORMAT = csv1 \
-            PATTERN = '.*csv' \
-            FORCE = FALSE",
-        warehouse='COMPUTE_WH',
-        database='POI_INDONESIA',
-        role='ACCOUNTADMIN',
-        schema='PUBLIC',
-    )
 
     for task_info in tasks:
         task = run_task(**task_info)
@@ -59,5 +45,4 @@ with DAG(
         
         prev_task = task
 
-    # Link Snowflake task to the last Python task
-    prev_task >> snowflake_task
+
