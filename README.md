@@ -34,7 +34,6 @@ Our primary objectives are as follows:
 
 6. **Quick Insight:**
    - Provide a mechanism for quick insights into the dataset.
-   - 
 ## Data Pipeline
 
 The data pipeline section outlines the process of collecting, processing, and organizing Points of Interest data. It covers the steps involved in building a robust pipeline to ensure the accuracy and completeness of the dataset.
