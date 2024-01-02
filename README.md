@@ -2,10 +2,6 @@
 
 Welcome to the POI (Points of Interest) Indonesia project! This project aims to create a comprehensive database of Points of Interest in Indonesia, offering valuable geospatial information.
 
-## Overview
-
-The POI Indonesia project focuses on collecting and organizing data about various Points of Interest across Indonesia. The dataset includes information about locations such as tourist attractions, restaurants, landmarks, and more. The goal is to provide a valuable resource for mapping applications, tourism, and geographic analysis.
-
 ## Table of Contents
 
 I. [Introduction](#introduction)
@@ -16,9 +12,29 @@ V. [Contributing](#contributing)
 VI. [License](#license)
 
 ## Introduction
+The term "POI" stands for "Points of Interest." In the context of this project, POIs refer to significant locations that capture interest due to their unique characteristics, cultural importance, or commercial significance. From well-known brands like Uniqlo and KFC to local landmarks, this project aims to compile a comprehensive dataset of diverse Points of Interest in Indonesia.
+## Project Objectives
 
-The Points of Interest (POI) Indonesia project aims to enhance geospatial information by curating a detailed database of locations across Indonesia. This section provides an overview of the project's objectives and its significance in mapping applications, tourism, and geographic analysis.
+Our primary objectives are as follows:
 
+1. **Extract Relevant Data:**
+   - Identify and extract essential data elements related to Points of Interest in Indonesia.
+
+2. **Data Standardization:**
+   - Standardize the extracted data for consistency, accuracy, and completeness.
+
+3. **Data Loading:**
+   - Load the transformed data into a data warehouse, making it easy to query and analyze.
+
+4. **User-Friendly Interface:**
+   - Develop an interface for users to access and query the Points of Interest data easily.
+
+5. **Reporting and Visualization:**
+   - Enable users to generate reports and visualizations to support decision-making.
+
+6. **Quick Insight:**
+   - Provide a mechanism for quick insights into the dataset.
+   - 
 ## Data Pipeline
 
 The data pipeline section outlines the process of collecting, processing, and organizing Points of Interest data. It covers the steps involved in building a robust pipeline to ensure the accuracy and completeness of the dataset.
@@ -30,11 +46,3 @@ Explore the dataset through detailed data analysis notebooks. This section provi
 ## Pipeline Automation
 
 Automation is key to maintaining an up-to-date and accurate Points of Interest database. This section introduces the automation techniques implemented in the project, ensuring a seamless and efficient data pipeline for continuous improvement.
-
-## Contributing
-
-Feel free to contribute to this project by forking and submitting a pull request. Make sure to follow the [code of conduct](CODE_OF_CONDUCT.md).
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
