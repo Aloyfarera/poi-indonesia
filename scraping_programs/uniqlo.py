@@ -6,7 +6,7 @@ import datetime, time
 from azure.storage.blob import BlobServiceClient
 import os
 from dotenv import load_dotenv
-from cleaning_data import get_city
+from cleaning_data import get_city,update_google_sheet
 
 load_dotenv()
 con_string = os.getenv('con_string')    
@@ -40,6 +40,7 @@ class uniqlo():
         blob_obj.upload_blob(csv_data,overwrite=True)
         print(f"Total data {self.file_name}: {x.shape}")
         print(f'File {self.file_name} uploaded to azure data lake storage poi-indonesia bucket')
+        update_google_sheet(self.file_name,x)
 
     def get_data(self):
         headers = {

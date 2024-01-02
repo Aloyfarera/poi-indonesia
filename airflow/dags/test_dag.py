@@ -33,6 +33,7 @@ with DAG(
     tasks = [
         {'task_id': 'kfc', 'bash_command': 'python3 /root/airflow/poi-indonesia/poi-indonesia/kfc.py'},
         {'task_id': 'uniqlo', 'bash_command': 'python3 /root/airflow/poi-indonesia/poi-indonesia/uniqlo.py'},
+        {'task_id': 'copy_to_snowflake_table', 'bash_command': 'python3 /root/airflow/poi-indonesia/poi-indonesia/copy_to_snowflake_table.py'}
         # Add more tasks as needed
     ]
 

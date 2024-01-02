@@ -5,6 +5,8 @@ import pandas as pd
 import http.client
 import json
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -12,8 +14,7 @@ from requests_html import HTMLSession,AsyncHTMLSession
 from azure.storage.blob import BlobServiceClient
 import os
 from dotenv import load_dotenv
-from cleaning_data import get_city
-
+from cleaning_data import get_city,update_google_sheet
 load_dotenv()
 
 con_string = os.getenv('con_string')
@@ -37,7 +38,8 @@ class kfc():
                             'open_hours',
                             'services',
                             'scrape_date'])
-      x = get_city(x)
+     
+      x = get_city(x) # classify city based on lat,lon or address
       if from_main:
           x.to_csv(f"csv/{self.file_name}.csv",index=False)
       else:
@@ -48,13 +50,18 @@ class kfc():
         blob_obj.upload_blob(csv_data,overwrite=True)
         print(f"Total data {self.file_name}: {x.shape}")
         print(f'File {self.file_name} uploaded to azure data lake storage poi-indonesia bucket')
-      
+        update_google_sheet(self.file_name,x)
     def update_cookies(self):
-        options = Options()
-        options.add_argument('--headless')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
-        browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        chromedriver_path = "/root/.wdm/drivers/chromedriver/linux64/119.0.6045.105/chromedriver-linux64/chromedriver"
+        chrome_options = ChromeOptions()
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_service = ChromeService(chromedriver_path)
+        try:
+            browser = webdriver.Chrome(service=chrome_service, options=chrome_options)
+        except:
+            browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
         browser.get('https://kfcku.com/store')
         time.sleep(2)
         cookie_data = browser.get_cookies()
