@@ -34,7 +34,7 @@ The data pipeline section outlines the process of collecting, processing, and or
 
 ## Data Visualization with Streamlit
 
-The interactive data visualization app is deployed on [Streamlit Cloud](https://poi-indonesia-w6po9npdo3bwsfzhdzjvnc.streamlit.app/). Feel free to interact with the application to explore the Points of Interest dataset in a user-friendly manner.(the project contains a limited dataset with only two Points of Interest (for example, Uniqlo and KFC), and the data is representative of January 2023. We plan to expand and update the dataset continuously to encompass a broader range of Points of Interest and include data from various timeframes.)
+The interactive data visualization app is deployed on [Streamlit Cloud](https://poi-indonesia-w6po9npdo3bwsfzhdzjvnc.streamlit.app/). Feel free to interact with the application to explore the Points of Interest dataset in a user-friendly manner.(the project contains a limited dataset with only two Points of Interest (for example, Uniqlo and KFC), and the data is representative of January 2023. We plan to expand and update the dataset continuously to encompass a broader range of Points of Interest and include data from various timeframes)
 
-![](assets/png/st dash tab.png)
-![](assets/png/st map tab.png)
+![](assets/png/st%20dash%20tab.png)
+![](assets/png/st%20map%20tab.png)
