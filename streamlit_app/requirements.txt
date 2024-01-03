@@ -1,3 +1,5 @@
 snowflake-connector-python==3.5.0
 snowflake-snowpark-python==1.11.1
 streamlit-folium
+plotly
+folium
